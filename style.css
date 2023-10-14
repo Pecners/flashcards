@@ -77,7 +77,7 @@ button {
     #prev-question, #next-question {
         min-width: none;
         max-width: none;
-        width: 50%;
+        width: 100%;
     }
 
 }
