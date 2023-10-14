@@ -83,4 +83,8 @@ button:hover {
         max-width: none;
         width: 50%;
     }
+
+    button:hover {
+        opacity: 100%;
+    }
 }
