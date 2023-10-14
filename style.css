@@ -24,10 +24,6 @@ button {
     padding-bottom: 5px;
 }
 
-button:hover {
-    opacity: 75%;
-}
-
 .flashcard {
     min-width: 400px;
     width: 75%;
@@ -84,7 +80,16 @@ button:hover {
         width: 50%;
     }
 
+}
+
+@media (hover: hover) {
     button:hover {
-        opacity: 100%;
+      opacity: 75%;
+    }
+}
+
+@media (hover: none) {
+    button:active {
+        opacity: 75%;
     }
 }
