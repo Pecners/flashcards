@@ -104,25 +104,25 @@
         
           getQuestion();
 
-          document.getElementById("reset").onclick = () => {
+          document.getElementById("reset").onmousedown = () => {
             ind = undefined;
             starter = 0;
             getQuestion();
           }
 
-          document.getElementById("next-question").onclick = () => {
+          document.getElementById("next-question").onmousedown = () => {
             document.getElementById("answer").style = 'visibility:hidden';
             nextQuestion();
             getQuestion();
           }
 
-          document.getElementById("prev-question").onclick = () => {
+          document.getElementById("prev-question").onmousedown = () => {
             document.getElementById("answer").style = 'visibility:hidden';
             prevQuestion();
             getQuestion();
           }
 
-          document.getElementById("show-answer").onclick = () => {
+          document.getElementById("show-answer").onmousedown = () => {
             toggleAnswer();
           }
 
