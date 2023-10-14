@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//d3js.org/d3.v3.min.js"></script>
+        <link href="style.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            #reset:hover {
+                cursor: pointer;
+                opacity: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flashcard">
+            <h2 id="question"></h2>
+            <p id="answer" style='visibility:hidden'></p>
+            <button id="show-answer">Show Answer</button><br>
+            <div class="prev-next">
+                <button id="prev-question">Previous</button>
+                <button id="next-question">Next</button>
+            </div>
+            <p id="counter"></p>
+            <div id="reset">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </div>
+        </div>
+        <script>
+            let ind;
+            let starter = 0;
+
+            // shuffle from here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+            const  shuffle = (array) => {
+                let currentIndex = array.length,  randomIndex;
+
+                // While there remain elements to shuffle.
+                while (currentIndex > 0) {
+
+                    // Pick a remaining element.
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex--;
+
+                    // And swap it with the current element.
+                    [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+                }
+
+                return array;
+            }
+
+            const getQuestion = () => {
+              d3.csv("./data/state_nicknames.csv",
+              function(data) {
+                if (typeof(ind) == 'undefined') {
+                    ind = Array.from(Array(data.length).keys());
+                    ind = shuffle(ind);
+                }
+
+                let left = ind.length - starter;
+                if (document.getElementById("answer").style.visibility == "visible") {
+                    document.getElementById("answer").style.visibility = "hidden";
+                }
+
+                if (starter == ind.length) {
+                    document.getElementById("question").innerHTML = "That's all!";
+                    document.getElementById("answer").innerHTML = "You're amazing!";
+                } else {
+                    document.getElementById("question").innerHTML = data[ind[starter]].state;
+                    document.getElementById("answer").innerHTML = data[ind[starter]].nickname;
+                }
+
+                document.getElementById("counter").innerHTML = "("+left+" left)"
+
+        
+
+            });
+          }
+
+          const toggleAnswer = () => {
+            let currentStyle = document.getElementById("answer").style.visibility;
+            if (currentStyle == "visible") {
+                document.getElementById("answer").style.visibility = "hidden";
+            } else {
+                document.getElementById("answer").style.visibility = "visible";
+            }
+          }
+
+          const nextQuestion = () => {
+            if (starter < ind.length) {
+                starter++;
+                //console.log("next");
+            }
+          }
+
+          const prevQuestion = () => {
+            if(starter > 0) {
+                starter--;
+            }
+          }
+        
+          getQuestion();
+
+          document.getElementById("reset").onclick = () => {
+            ind = undefined;
+            starter = 0;
+            getQuestion();
+          }
+
+          document.getElementById("next-question").onclick = () => {
+            document.getElementById("answer").style = 'visibility:hidden';
+            nextQuestion();
+            getQuestion();
+          }
+
+          document.getElementById("prev-question").onclick = () => {
+            document.getElementById("answer").style = 'visibility:hidden';
+            prevQuestion();
+            getQuestion();
+          }
+
+          document.getElementById("show-answer").onclick = () => {
+            toggleAnswer();
+          }
+
+          document.onkeydown = function (e) {
+            e = e || window.event;
+            switch (e.which || e.keyCode) {
+                    case 39 : 
+                        nextQuestion(); 
+                        getQuestion();//Your Code Here (13 is ascii code for 'ENTER')
+                        break;
+                    case 37 : 
+                        prevQuestion(); 
+                        getQuestion();//Your Code Here (13 is ascii code for 'ENTER')
+                        break;
+                    case 40 : 
+                        toggleAnswer();//Your Code Here (13 is ascii code for 'ENTER')
+                        break;
+                    case 38 : 
+                        toggleAnswer();//Your Code Here (13 is ascii code for 'ENTER')
+                        break;
+            }
+          }
+          </script>
+    </body>
+</html>
