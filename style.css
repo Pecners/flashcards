@@ -86,10 +86,19 @@ button {
     button:hover {
       opacity: 75%;
     }
+
+    #reset:hover {
+        cursor: pointer;
+        opacity: 75%;
+    }
 }
 
 @media (hover: none) {
     button:active {
+        opacity: 75%;
+    }
+
+    #reset:active {
         opacity: 75%;
     }
 }
