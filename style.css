@@ -35,6 +35,7 @@ button {
 
 .prev-next {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     min-width: 300px;
     max-width: 300px;
@@ -72,6 +73,7 @@ button {
         min-width: 100%;
     }
     .prev-next {
+        display: block;
         min-width: 100%;
     }
     #prev-question, #next-question {
