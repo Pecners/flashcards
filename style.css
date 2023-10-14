@@ -65,14 +65,22 @@ button:hover {
     font-size: 12pt;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 540px) {
     /* For mobile phones: */
     .flashcard {
-        width: 100%;
+        min-width: 100%;
         margin-right: 0;
         margin-left: 0;
     }
+    #show-answer {
+        min-width: 100%;
+    }
+    .prev-next {
+        min-width: 100%;
+    }
     #prev-question, #next-question {
-      width: 50%;
+        min-width: none;
+        max-width: none;
+        width: 50%;
     }
 }
