@@ -19,13 +19,15 @@
                 <button id="prev-question">Previous</button>
             </div>
             <p id="counter"></p>
-            <div id="reset">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
+            <div>
+                <i id="reset" class="fa fa-refresh" aria-hidden="true"></i>
+                <i id="swap" class="fa fa-random"></i>
             </div>
         </div>
         <script>
             let ind;
             let starter = 0;
+            let which_query = "state";
 
             // shuffle from here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
             const  shuffle = (array) => {
@@ -54,6 +56,14 @@
                     ind = shuffle(ind);
                 }
 
+                if (which_query == "state") {
+                    query = data[ind[starter]].state;
+                    answer = data[ind[starter]].nickname;
+                } else {
+                    query = data[ind[starter]].nickname;
+                    answer = data[ind[starter]].state;
+                }
+
                 let left = ind.length - starter;
                 if (document.getElementById("answer").style.visibility == "visible") {
                     document.getElementById("answer").style.visibility = "hidden";
@@ -63,13 +73,11 @@
                     document.getElementById("question").innerHTML = "That's all!";
                     document.getElementById("answer").innerHTML = "You're amazing!";
                 } else {
-                    document.getElementById("question").innerHTML = data[ind[starter]].state;
-                    document.getElementById("answer").innerHTML = data[ind[starter]].nickname;
+                    document.getElementById("question").innerHTML = query;
+                    document.getElementById("answer").innerHTML = answer;
                 }
 
                 document.getElementById("counter").innerHTML = "("+left+" left)"
-
-        
 
             });
           }
@@ -103,6 +111,16 @@
             starter = 0;
             getQuestion();
           }
+
+          document.getElementById("swap").onmousedown = () => {
+            if (which_query == "state") {
+                which_query = "nickname";
+            } else {
+                which_query = "state";
+            }
+            getQuestion();
+          }
+
 
           document.getElementById("next-question").onmousedown = () => {
             document.getElementById("answer").style = 'visibility:hidden';
