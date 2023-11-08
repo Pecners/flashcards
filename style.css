@@ -66,6 +66,11 @@ button {
     font-size: 12pt;
 }
 
+#utils-icons {
+    display: inline-block;
+    position: relative;
+}
+
 @media screen and (max-width: 540px) {
     /* For mobile phones: */
     .flashcard {
