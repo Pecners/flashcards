@@ -55,26 +55,27 @@
                     ind = Array.from(Array(data.length).keys());
                     ind = shuffle(ind);
                 }
-
-                if (which_query == "state") {
-                    query = data[ind[starter]].state;
-                    answer = data[ind[starter]].nickname;
-                } else {
-                    query = data[ind[starter]].nickname;
-                    answer = data[ind[starter]].state;
-                }
-
                 let left = ind.length - starter;
-                if (document.getElementById("answer").style.visibility == "visible") {
-                    document.getElementById("answer").style.visibility = "hidden";
-                }
 
-                if (starter == ind.length) {
-                    document.getElementById("question").innerHTML = "That's all!";
-                    document.getElementById("answer").innerHTML = "You're amazing!";
-                } else {
+                if (starter != ind.length) {
+                    if (which_query == "state") {
+                        query = data[ind[starter]].state;
+                        answer = data[ind[starter]].nickname;
+                    } else {
+                        query = data[ind[starter]].nickname;
+                        answer = data[ind[starter]].state;
+                    }
+
+                    if (document.getElementById("answer").style.visibility == "visible") {
+                        document.getElementById("answer").style.visibility = "hidden";
+                    }
+
                     document.getElementById("question").innerHTML = query;
                     document.getElementById("answer").innerHTML = answer;
+                } else {
+                    let left = ind.length - starter;
+                    document.getElementById("question").innerHTML = "That's all!";
+                    document.getElementById("answer").innerHTML = "You're amazing!";
                 }
 
                 document.getElementById("counter").innerHTML = "("+left+" left)"
@@ -94,13 +95,14 @@
           const nextQuestion = () => {
             if (starter < ind.length) {
                 starter++;
-                //console.log("next");
+                console.log(starter+"\n");
             }
           }
 
           const prevQuestion = () => {
             if(starter > 0) {
                 starter--;
+                console.log(starter+"\n");
             }
           }
         
